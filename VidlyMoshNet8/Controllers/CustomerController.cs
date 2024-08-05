@@ -1,22 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using VidlyMoshNet8.Data;
 using VidlyMoshNet8.Models;
 
 namespace VidlyMoshNet8.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public CustomerController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ViewResult Index()
         {
-            var customers = GetCustomers();
+            var customers = _context.Customers.ToList();
             //var hello = "Hello World!";
             return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return new NotFoundResult();
@@ -24,13 +36,5 @@ namespace VidlyMoshNet8.Controllers
             return View(customer);
         }
 
-        private IEnumerable<Customers> GetCustomers()
-        {
-            return new List<Customers>
-            {
-                new Customers { Id = 1, Name = "John Smith" },
-                new Customers { Id = 2, Name = "Mary Williams" }
-            };
-        }
     }
 }
