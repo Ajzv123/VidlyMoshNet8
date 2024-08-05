@@ -1,0 +1,33 @@
+﻿@model System.Collections.Generic.IEnumerable<VidlyMoshNet8.Models.Customers>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "_Layout";
+}
+
+<h2>Customers</h2>
+@if(!Model.Any())
+{
+    <text>No customers found.</text>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(customer.Name, "Details", "Customer", new { id = customer.Id }, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+})
