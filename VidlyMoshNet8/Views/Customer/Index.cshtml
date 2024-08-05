@@ -15,8 +15,8 @@ else
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Membership Type</th>
+                <th>Customer</th>
+                <th>Discount Rate</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +25,9 @@ else
                 <tr>
                     <td>
                         @Html.ActionLink(customer.Name, "Details", "Customer", new { id = customer.Id }, null)
+                    </td>
+                    <td>
+                        @customer.MembershipType.DiscountRate%
                     </td>
                 </tr>
             }
