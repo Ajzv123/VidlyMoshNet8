@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.Models;
+using VidlyMoshNet8.ViewModel;
 
 namespace VidlyMoshNet8.Controllers
 {
@@ -18,6 +19,16 @@ namespace VidlyMoshNet8.Controllers
         {
             _context.Dispose();
         }
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipType.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View(viewModel);
+        }
+        
 
         public ViewResult Index()
         {
