@@ -31,9 +31,25 @@ namespace VidlyMoshNet8.Controllers
 
         [HttpPost]
 
-        public ActionResult Create(Customers customers)
+        public ActionResult Save( Customers customers)
         {
-            _context.Customers.Add(customers);
+            if (customers.Id == 0)
+            {
+                _context.Customers.Add(customers);
+            }
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customers.Id);
+                //Mapper.Map(customer, customerInDb);
+
+                customerInDb.Name = customers.Name;
+                customerInDb.Birthdate = customers.Birthdate;
+                customerInDb.MembershipTypeId = customers.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsLetter = customers.IsSubscribedToNewsLetter;
+            }
+
+
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Customer");
         }
