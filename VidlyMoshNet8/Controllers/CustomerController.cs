@@ -24,6 +24,7 @@ namespace VidlyMoshNet8.Controllers
             var membershipTypes = _context.MembershipType.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                Customers = new Customers(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", viewModel);
@@ -37,6 +38,7 @@ namespace VidlyMoshNet8.Controllers
         {
             if(!ModelState.IsValid)
             {
+                ModelState.AddModelError("","");
                 var viewModel = new CustomerFormViewModel
                 {
                     Customers = customers,
