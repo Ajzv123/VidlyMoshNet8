@@ -11,6 +11,7 @@ namespace VidlyMoshNet8.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Customers> Customers { get; set; }
         public DbSet<MembershipType> MembershipType { get; set; }
+        public DbSet<Genre> Genre { get; set; }
     }
 }
 /*

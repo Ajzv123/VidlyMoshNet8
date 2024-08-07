@@ -28,11 +28,22 @@ namespace VidlyMoshNet8.Controllers
             };
             return View("CustomerForm", viewModel);
         }
-
+        
+        
+        //Estructura general de un metodo POST o Api
         [HttpPost]
 
         public ActionResult Save( Customers customers)
         {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customers = customers,
+                    MembershipTypes = _context.MembershipType.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
             if (customers.Id == 0)
             {
                 _context.Customers.Add(customers);
@@ -47,9 +58,6 @@ namespace VidlyMoshNet8.Controllers
                 customerInDb.MembershipTypeId = customers.MembershipTypeId;
                 customerInDb.IsSubscribedToNewsLetter = customers.IsSubscribedToNewsLetter;
             }
-
-
-
             _context.SaveChanges();
             return RedirectToAction("Index", "Customer");
         }

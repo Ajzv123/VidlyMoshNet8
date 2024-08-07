@@ -10,6 +10,7 @@
     <div class="form-group">
         @Html.LabelFor(c => c.Customers.Name)
         @Html.TextBoxFor(c => c.Customers.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Customers.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Customers.Birthdate)
