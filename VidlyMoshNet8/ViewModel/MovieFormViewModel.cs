@@ -25,6 +25,7 @@ namespace VidlyMoshNet8.ViewModel
         [Range(1, 20)]
         [Required]
         public byte? NumberInStock { get; set; }
+        public Movie Movie { get; set; }
 
         public string Title
         {

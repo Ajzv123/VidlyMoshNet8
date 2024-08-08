@@ -9,7 +9,7 @@ namespace VidlyMoshNet8.Models
         [StringLength(255)]
         public string Name { get; set; }
 
-        [Required]
+        
         public Genre Genre { get; set; }
 
         [Display(Name = "Genre")]
@@ -21,7 +21,7 @@ namespace VidlyMoshNet8.Models
         public DateTime ReleaseDate { get; set; }
         
         [Display(Name = "Number in Stock")]
-        [Range(1, 20)]
+        [Range(1, 100)]
         public byte NumberInStock { get; set; }
     }
 }

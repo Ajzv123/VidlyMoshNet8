@@ -30,6 +30,7 @@ public class MoviesController : Controller
         var genres = _context.Genre.ToList();
         var viewModel = new MovieFormViewModel
         {
+            
             Genres = genres
         };
 
@@ -98,6 +99,7 @@ public class MoviesController : Controller
         else
         {
             var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+            
             movieInDb.Name = movie.Name;
             movieInDb.ReleaseDate = movie.ReleaseDate;
             movieInDb.GenreId = movie.GenreId;
