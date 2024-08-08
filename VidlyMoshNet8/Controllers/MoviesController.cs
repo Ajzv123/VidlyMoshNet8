@@ -30,21 +30,25 @@ public class MoviesController : Controller
         var genres = _context.Genre.ToList();
         var viewModel = new MovieFormViewModel
         {
-            
-            Genres = genres
+            Genres = genres,
+            Movie = new Movie
+            {
+                ReleaseDate = DateTime.Parse("1/1/1950")
+            }
         };
 
         return View("MoviesForm", viewModel);
     }
     public ActionResult Edit(int id)
     {
-        var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+        var movies = _context.Movies.SingleOrDefault(m => m.Id == id);
 
-        if (movie == null)
-            return NotFound();
+        if (movies == null)
+            return new NotFoundResult();
 
         var viewModel = new MovieFormViewModel
         {
+            Movie = movies,
             Genres = _context.Genre.ToList()
         };
 
@@ -61,37 +65,56 @@ public class MoviesController : Controller
         return View(movie);
     }
 
-    public ActionResult Random()
-    {
-        var movie = new Movie() { Name = "Shrek!" };
-        var customers = new List<Customers>
-        {
-            new Customers { Name = "Customer 1" },
-            new Customers { Name = "Customer 2" }
-        };
+    //public ActionResult Random()
+    //{
+    //    var movie = new Movie() { Name = "Shrek!" };
+    //    var customers = new List<Customers>
+    //    {
+    //        new Customers { Name = "Customer 1" },
+    //        new Customers { Name = "Customer 2" }
+    //    };
 
-        var viewModel = new RandomMovieViewModel
-        {
-            Movie = movie,
-            Customers = customers
-        };
+    //    var viewModel = new RandomMovieViewModel
+    //    {
+    //        Movie = movie,
+    //        Customers = customers
+    //    };
 
-        return View(viewModel);
-    }
+    //    return View(viewModel);
+    //}
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Save(Movie movie)
     {
-        if (!ModelState.IsValid)
+        var errorCheck = false;
+        var errorList = ModelState
+            .Where(x => x.Value.Errors.Count >0)
+            .Select(x => new { x.Key, x.Value.Errors })
+            .ToList();
+
+        if (errorList.Count <= 1 && errorList.Any(x => x.Key == "movie.Genre"))
+            errorCheck = true;
+
+        if (!ModelState.IsValid && !errorCheck)
         {
-            ModelState.AddModelError("", "");
             var viewModel = new MovieFormViewModel
             {
+                Movie = movie,
                 Genres = _context.Genre.ToList()
             };
             return View("MoviesForm", viewModel);
         }
-        if(movie.Id ==0)
+
+        //if (!ModelState.IsValid)
+        //{
+        //    ModelState.AddModelError("", "");
+        //    var viewModel = new MovieFormViewModel
+        //    {
+        //        Genres = _context.Genre.ToList()
+        //    };
+        //    return View("MoviesForm", viewModel);
+        //}
+        if (movie.Id ==0)
         {
             movie.DateAdded = DateTime.Now;
             _context.Movies.Add(movie);
@@ -101,9 +124,9 @@ public class MoviesController : Controller
             var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
             
             movieInDb.Name = movie.Name;
-            movieInDb.ReleaseDate = movie.ReleaseDate;
             movieInDb.GenreId = movie.GenreId;
             movieInDb.NumberInStock = movie.NumberInStock;
+            movieInDb.ReleaseDate = movie.ReleaseDate;
         }
         _context.SaveChanges();
         return RedirectToAction("Index", "Movies");

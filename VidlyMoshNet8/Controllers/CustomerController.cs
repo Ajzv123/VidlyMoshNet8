@@ -36,9 +36,18 @@ namespace VidlyMoshNet8.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save( Customers customers)
         {
-            if(!ModelState.IsValid)
+
+            var errorCheck = false;
+            var errorsList = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToList();
+
+            if (errorsList.Count <= 1 && errorsList.Any(x => x.Key == "customers.MembershipType"))
+                errorCheck = true;
+            // customer.MembershipType is always null, bypass here
+            if (!ModelState.IsValid && !errorCheck)
             {
-                ModelState.AddModelError("","");
                 var viewModel = new CustomerFormViewModel
                 {
                     Customers = customers,
@@ -74,7 +83,9 @@ namespace VidlyMoshNet8.Controllers
 
         public ActionResult Details(int id)
         {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.
+                Include(c => c.MembershipType).
+                SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return new NotFoundResult();

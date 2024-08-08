@@ -19,10 +19,17 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(movie.Name, "Edit", "Movies", new{id = movie.Id},null)
+                    @movie.Name
                 </td>
                 <td>
                     @movie.Genre.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", 
+                        "Edit", 
+                        "Movies", 
+                        new { id = movie.Id}, 
+                        new { @class="btn btn-secondary"})
                 </td>
             </tr>
          }

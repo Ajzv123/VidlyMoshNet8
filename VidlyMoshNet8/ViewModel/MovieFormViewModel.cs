@@ -7,7 +7,7 @@ namespace VidlyMoshNet8.ViewModel
     public class MovieFormViewModel
     {
         public IEnumerable<Genre> Genres { get; set; }
-        public int ? Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -22,7 +22,7 @@ namespace VidlyMoshNet8.ViewModel
         public DateTime? ReleaseDate { get; set; }
 
         [Display(Name = "Number in Stock")]
-        [Range(1, 20)]
+        [Range(1, 100)]
         [Required]
         public byte? NumberInStock { get; set; }
         public Movie Movie { get; set; }

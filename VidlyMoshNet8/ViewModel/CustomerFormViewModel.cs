@@ -6,5 +6,10 @@ namespace VidlyMoshNet8.ViewModel
     {
         public IEnumerable<MembershipType> MembershipTypes { get; set; }
         public Customers Customers { get; set; }
+
+        public CustomerFormViewModel()
+        {
+            Customers = new Customers();
+        }
     }
 }

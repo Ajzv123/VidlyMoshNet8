@@ -24,10 +24,17 @@ else
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(customer.Name, "Edit", "Customer", new { id = customer.Id }, null)
+                        @customer.Name
                     </td>
                     <td>
                         @customer.MembershipType.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", 
+                            "Edit", 
+                            "Customer", 
+                            new { id = customer.Id}, 
+                            new { @class="btn btn-secondary"})
                     </td>
                 </tr>
             }
