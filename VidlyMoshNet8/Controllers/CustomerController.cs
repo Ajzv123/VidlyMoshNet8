@@ -33,7 +33,7 @@ namespace VidlyMoshNet8.Controllers
         
         //Estructura general de un metodo POST o Api
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public ActionResult Save( Customers customers)
         {
             if(!ModelState.IsValid)

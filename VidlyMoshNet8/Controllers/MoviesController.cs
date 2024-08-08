@@ -78,8 +78,18 @@ public class MoviesController : Controller
         return View(viewModel);
     }
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public ActionResult Save(Movie movie)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("", "");
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = _context.Genre.ToList()
+            };
+            return View("MoviesForm", viewModel);
+        }
         if(movie.Id ==0)
         {
             movie.DateAdded = DateTime.Now;
