@@ -1,19 +1,40 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
+using VidlyMoshNet8.Maps;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 
 // Add services to the container.
+
+
 builder.Services.AddControllersWithViews();
+
+
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+
 
 
 var app = builder.Build();
