@@ -19,6 +19,8 @@ namespace VidlyMoshNet8.Controllers
         {
             _context.Dispose();
         }
+
+        [Route("customer/new")]
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipType.ToList();
@@ -34,6 +36,7 @@ namespace VidlyMoshNet8.Controllers
         //Estructura general de un metodo POST o Api
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("customer/save")]
         public ActionResult Save( Customers customers)
         {
 
@@ -81,6 +84,7 @@ namespace VidlyMoshNet8.Controllers
             return View(customers);
         }
 
+        [Route("customer/{id}")]
         public ActionResult Details(int id)
         {
             var customer = _context.Customers.
