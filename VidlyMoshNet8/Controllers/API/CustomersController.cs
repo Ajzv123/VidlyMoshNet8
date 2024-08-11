@@ -44,14 +44,14 @@ namespace VidlyMoshNet8.Controllers.API
         {
             if (!ModelState.IsValid)
             {
-                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+                return BadRequest();
             }
             var customer = _mapper.Map<CustomerDTO, Customers>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
             customerDto.Id = customer.Id;
-            return Created(Request.Path.ToString()+"/"+customerDto.Id, customerDto);
+            return Created(Request.Path.ToString()+"/"+customer.Id, customerDto);
         }
 
         //PUT: /api/customers/1

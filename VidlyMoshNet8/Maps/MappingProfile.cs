@@ -9,7 +9,12 @@ namespace VidlyMoshNet8.Maps
         public MappingProfile()
         {
             CreateMap<Customers, CustomerDTO>();
-            CreateMap<CustomerDTO, Customers>();
+            CreateMap<CustomerDTO, Customers>()
+                .ForMember(c => c.Id, opt=> opt.Ignore());
+
+            CreateMap<Movie, MovieDTO>();
+            CreateMap<MovieDTO, Movie>()
+                .ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace VidlyMoshNet8.Models
 {
-    public class Min18YearsIfAMember : ValidationAttribute
+    public class Min18YearsIfAMember : ValidationAttribute //inherits from ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
