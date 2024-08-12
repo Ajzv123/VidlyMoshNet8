@@ -12,6 +12,7 @@ namespace VidlyMoshNet8.Maps
             CreateMap<CustomerDTO, Customers>()
                 .ForMember(c => c.Id, opt=> opt.Ignore());
             CreateMap<MembershipType, MembershipTypeDTO>();
+            CreateMap<Genre, GenreDTO>();
 
 
             CreateMap<Movie, MovieDTO>();

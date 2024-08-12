@@ -16,6 +16,8 @@ namespace VidlyMoshNet8.DTO
 
         public byte GenreId { get; set; }
 
+        public GenreDTO Genre { get; set; }
+
         [Range(1, 100)]
         public byte NumberInStock { get; set; }
 

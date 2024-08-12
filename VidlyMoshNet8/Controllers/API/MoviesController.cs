@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.DTO;
 using VidlyMoshNet8.Models;
@@ -21,10 +22,12 @@ namespace VidlyMoshNet8.Controllers.API
         }
 
         [HttpGet]
-        public IEnumerable<MovieDTO> GetMovies()
+        public IActionResult GetMovies()
         {
-            return _context.Movies.ToList().Select(_mapper.Map<Movie, MovieDTO>);
-        }
+            return Ok(_context.Movies
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(_mapper.Map<Movie, MovieDTO>));       }
 
         [HttpGet("{id}")]
         public IActionResult GetMovie(int id)
