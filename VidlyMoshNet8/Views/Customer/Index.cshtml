@@ -27,13 +27,14 @@
                     url: "/api/customer",
                     dataSrc: ""
                 },
-                columns: [{
+                columns: [
+                   {
                     data: "name"
                 }, {
                     data: "membershipType.name"
                 },
                 {
-                    data: "Id",
+                    data: "id",
                     render: function (data, type, customer) {
                         return "<a href='/Customer/Edit/" + customer.id + "' class='btn btn-secondary'>Edit</a>";
                     }
