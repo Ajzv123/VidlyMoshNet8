@@ -79,9 +79,7 @@ namespace VidlyMoshNet8.Controllers
 
         public ViewResult Index()
         {
-            var customers = _context.Customers.Include(c=>c.MembershipType).ToList();
-            //var hello = "Hello World!";
-            return View(customers);
+            return View();
         }
 
         [Route("customer/{id}")]

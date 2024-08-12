@@ -13,6 +13,8 @@ namespace VidlyMoshNet8.DTO
 
         public byte MembershipTypeId { get; set; }
 
+        public MembershipTypeDTO MembershipType { get; set; }
+
         //[Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.DTO;
 using VidlyMoshNet8.Models;
@@ -19,11 +20,16 @@ namespace VidlyMoshNet8.Controllers.API
             _context = context;
             _mapper = mapper;
         }
+
+
          // GET: api/customers
         [HttpGet]
         public IEnumerable<CustomerDTO> GetCustomers()
         {
-            return _context.Customers.ToList().Select(_mapper.Map<Customers, CustomerDTO>);
+            return _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(_mapper.Map<Customers, CustomerDTO>);
         }
 
         // GET: api/customers/1
