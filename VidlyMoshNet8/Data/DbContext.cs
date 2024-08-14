@@ -1,12 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Models;
 
 namespace VidlyMoshNet8.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var adminRoleId = "799ed1f5-dc54-4459-b9cf-cbc4e74419f4";
+            var userRoleId = "2ff420db-dae7-41f9-8d1c-24c6d9651056";
+            var roles = new List<IdentityRole>
+            {
+                new IdentityRole
+                {
+                    Name = "Admin", 
+                    NormalizedName = "ADMIN", 
+                    Id = adminRoleId,
+                    ConcurrencyStamp = adminRoleId
+
+                },
+                new IdentityRole
+                {
+                    Name = "User", 
+                    NormalizedName = "USER",
+                    Id = userRoleId,
+                    ConcurrencyStamp = userRoleId
+                }
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
         }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Customers> Customers { get; set; }
