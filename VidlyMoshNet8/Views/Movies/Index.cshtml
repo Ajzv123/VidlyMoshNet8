@@ -13,6 +13,7 @@
         <th>Movie</th>
         <th>Genre</th>
         <th>In Stock</th>
+        <th>Details</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -43,8 +44,14 @@
                     },
                     {
                         data: "id",
-                        render: function (data, type, movie) {
-                            return "<a href='/Movies/Edit/" + movie.id + "' class='btn btn-secondary'>Edit</a>";
+                        render: function (data) {
+                            return "<a href='/Movies/Details/" + data + "' class='btn btn-info'>Details</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<a href='/Movies/Edit/" + data + "' class='btn btn-secondary'>Edit</a>";
                         }
                     },
                     {

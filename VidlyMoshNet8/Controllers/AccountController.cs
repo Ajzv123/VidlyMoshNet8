@@ -35,16 +35,40 @@ namespace VidlyMoshNet8.Controllers
             var identityResult = await _userManager.CreateAsync(IdentityUser, model.Password);
             if (identityResult.Succeeded)
             {
-                var roleIdentityResult = await _userManager.AddToRoleAsync(IdentityUser, "User");
+                var roleIdentityResult = await _userManager.AddToRoleAsync(IdentityUser, "Admin");
                 if (roleIdentityResult.Succeeded)
                 {
                     await _signInManager.SignInAsync(IdentityUser, isPersistent: false);
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
             return RedirectToAction();
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            var result = await _signInManager.PasswordSignInAsync(
+                model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.Models;
@@ -19,7 +20,7 @@ namespace VidlyMoshNet8.Controllers
         {
             _context.Dispose();
         }
-
+        [Authorize(Roles = "Admin")]
         [Route("customer/new")]
         public ActionResult New()
         {
@@ -76,13 +77,14 @@ namespace VidlyMoshNet8.Controllers
             return RedirectToAction("Index", "Customer");
         }
 
-
+        [Authorize]
         public ViewResult Index()
         {
             return View();
         }
 
         [Route("customer/{id}")]
+        [Authorize]
         public ActionResult Details(int id)
         {
             var customer = _context.Customers.
@@ -94,7 +96,7 @@ namespace VidlyMoshNet8.Controllers
 
             return View(customer);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);

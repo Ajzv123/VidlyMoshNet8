@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.Models;
@@ -24,6 +25,7 @@ public class MoviesController : Controller
     {
         return View();
     }
+    [Authorize (Roles ="Admin")]
     public ViewResult New()
     {
         var genres = _context.Genre.ToList();
@@ -38,6 +40,7 @@ public class MoviesController : Controller
 
         return View("MoviesForm", viewModel);
     }
+    [Authorize(Roles = "Admin")]
     public ActionResult Edit(int id)
     {
         var movies = _context.Movies.SingleOrDefault(m => m.Id == id);
@@ -53,7 +56,7 @@ public class MoviesController : Controller
 
         return View("MoviesForm", viewModel);
     }
-
+    [Authorize]
     public ActionResult Details(int id)
     {
         var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
