@@ -47,9 +47,13 @@ namespace VidlyMoshNet8.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string ReturnUrl)
         {
-            return View();
+            var model = new LoginViewModel
+            {
+                ReturnUrl = ReturnUrl
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -59,6 +63,11 @@ namespace VidlyMoshNet8.Controllers
                 model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+
+                if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                {
+                    return RedirectToPage(model.ReturnUrl);
+                }
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -69,6 +78,12 @@ namespace VidlyMoshNet8.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

@@ -6,7 +6,7 @@
 }
 
 <h2>Customers</h2>
-<p>
+<p>    
     @Html.ActionLink("New Customer", "New", "Customer", null, new { @class = "btn btn-primary" })
 </p>
 <table id="customers" class="table table-bordered table-hover">
@@ -14,9 +14,7 @@
     <tr>
         <th>Customer</th>
         <th>Discount Rate</th>
-        <th>Details</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +24,7 @@
 {
     <script>
         $(document).ready(function () {
+           var isAdmin = @User.IsInRole("Admin").ToString().ToLower();
            var table= $("#customers").DataTable({
                 ajax: {
                     url: "/api/customer",
@@ -37,26 +36,41 @@
                 }, {
                     data: "membershipType.name"
                 },
-                {
-                    data: "id",
-                    render: function (data) {
-                        return "<a href='/customer/" + data + "' class='btn btn-info'>Details</a>";
+                    {
+                        data: "id",
+                        render: function (data) {
+                            var actions = "<a href='/customer/" + data + "' class='btn btn-info'>Details</a>";
+
+                            if (isAdmin) {
+                                actions += "<a href='/Customer/Edit/" + data + "' class='btn btn-secondary'>Edit</a>";
+                                actions += "<button class='btn btn-danger js-delete' data-customer-id=" + data + ">Delete</button>";
+                            }
+
+                            return actions;
+                        }
                     }
-                },
-                {
-                    data: "id",
-                    render: function (data, type, customer) {
-                        return "<a href='/Customer/Edit/" + customer.id + "' class='btn btn-secondary'>Edit</a>";
-                    }
-                },
-                {
-                    data: "id",
-                    render: function (data) {
-                        return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
-                    }
-                }]
+                // {
+                //     data: "id",
+                //     render: function (data) {
+                //         return "<a href='/customer/" + data + "' class='btn btn-info'>Details</a>";
+                //     }
+                // },
+                // {
+                //     data: "id",
+                //     render: function (data, type, customer) {
+                //         return "<a href='/Customer/Edit/" + customer.id + "' class='btn btn-secondary'>Edit</a>";
+                //     }
+                // },
+                // {
+                //     data: "id",
+                //     render: function (data) {
+                //         return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+                //     }
+                // }
+                ]
                 
             });
+            
 
             $("#customers").on("click",".js-delete", function () {
                 var button = $(this);

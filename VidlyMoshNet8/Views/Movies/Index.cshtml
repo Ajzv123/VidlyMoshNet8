@@ -5,7 +5,10 @@
 }
 <h2>Movies</h2>
 <p>
-    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+    }
 </p>
 <table id="movies" class="table table-bordered table-hover">
     <thead>
@@ -13,9 +16,9 @@
         <th>Movie</th>
         <th>Genre</th>
         <th>In Stock</th>
-        <th>Details</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Actions</th>
+        
+
     </tr>
     </thead>
     <tbody>
@@ -24,8 +27,10 @@
 
 @section scripts
 {
+
     <script>
         $(document).ready(function () {
+            var isAdmin = @User.IsInRole("Admin").ToString().ToLower();
             var table = $("#movies").DataTable({
                 ajax: {
                     url: "/api/movies",
@@ -42,22 +47,35 @@
                     {
                         data: "numberInStock"
                     },
+                    // {
+                    //     data: "id",
+                    //     render: function (data) {
+                    //         return "<a href='/Movies/Details/" + data + "' class='btn btn-info'>Details</a>";
+                    //     }
+                    // },
+                    // {
+                    //     data: "id",
+                    //     render: function (data) {
+                    //         return "<a href='/Movies/Edit/" + data + "' class='btn btn-secondary'>Edit</a>";
+                    //     }
+                    // },
+                    // {
+                    //     data: "id",
+                    //     render: function (data) {
+                    //         return "<button class='btn-link js-delete' data-movie-id=" + data + ">Delete</button>";
+                    //     }
+                    // }
                     {
                         data: "id",
                         render: function (data) {
-                            return "<a href='/Movies/Details/" + data + "' class='btn btn-info'>Details</a>";
-                        }
-                    },
-                    {
-                        data: "id",
-                        render: function (data) {
-                            return "<a href='/Movies/Edit/" + data + "' class='btn btn-secondary'>Edit</a>";
-                        }
-                    },
-                    {
-                        data: "id",
-                        render: function (data) {
-                            return "<button class='btn-link js-delete' data-movie-id=" + data + ">Delete</button>";
+                            var actions = "<a href='/Movies/Details/" + data + "' class='btn btn-info'>Details</a>";
+
+                            if (isAdmin) {
+                                actions += " <a href='/Movies/Edit/" + data + "' class='btn btn-secondary'>Edit</a>";
+                                actions += " <button class='btn btn-danger js-delete' data-movie-id='" + data + "'>Delete</button>";
+                            }
+
+                            return actions;
                         }
                     }
                 ]
