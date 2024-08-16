@@ -20,7 +20,7 @@ namespace VidlyMoshNet8.Controllers
         {
             _context.Dispose();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [Route("customer/new")]
         public ActionResult New()
         {

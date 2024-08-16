@@ -7,7 +7,8 @@ namespace VidlyMoshNet8.Data
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) :
+	        base(options)
         {
 
         }
@@ -42,6 +43,7 @@ namespace VidlyMoshNet8.Data
         public DbSet<Customers> Customers { get; set; }
         public DbSet<MembershipType> MembershipType { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<Rental> Rental { get; set; }
     }
 }
 /*

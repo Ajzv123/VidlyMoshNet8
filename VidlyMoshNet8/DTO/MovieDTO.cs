@@ -20,6 +20,7 @@ namespace VidlyMoshNet8.DTO
 
         [Range(1, 100)]
         public byte NumberInStock { get; set; }
+        public byte NumberAvailable { get; set; }
 
         [Required]
         public DateTime ReleaseDate { get; set; }

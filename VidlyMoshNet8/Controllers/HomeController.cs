@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.OutputCaching;
 using VidlyMoshNet8.Models;
 
 namespace VidlyMoshNet8.Controllers
@@ -12,7 +15,6 @@ namespace VidlyMoshNet8.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();

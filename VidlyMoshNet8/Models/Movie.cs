@@ -22,8 +22,9 @@ namespace VidlyMoshNet8.Models
         [Display(Name = "Number in Stock")]
         [Range(1, 100)]
         public byte NumberInStock { get; set; }
+        public byte NumberAvailable { get; set; }
 
-        [Required]
+		[Required]
         [Display(Name = "Release Date")]
         public DateTime ReleaseDate { get; set; }
         
