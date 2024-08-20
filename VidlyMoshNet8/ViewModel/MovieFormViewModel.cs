@@ -25,6 +25,9 @@ namespace VidlyMoshNet8.ViewModel
         [Range(1, 100)]
         [Required]
         public byte? NumberInStock { get; set; }
+
+        public byte NumberAvailable { get; set; }
+
         public Movie Movie { get; set; }
 
         public string Title
@@ -37,6 +40,14 @@ namespace VidlyMoshNet8.ViewModel
         public MovieFormViewModel()
         {
             Id = 0;
+            NumberAvailable = NumberInStock ?? 0;
+        }
+        public bool IsNew
+        {
+            get
+            {
+                return Movie != null && Movie.Id == 0;
+            }
         }
 
         public MovieFormViewModel(Movie movie)
@@ -46,6 +57,7 @@ namespace VidlyMoshNet8.ViewModel
             ReleaseDate = movie.ReleaseDate;
             NumberInStock = movie.NumberInStock;
             GenreId = movie.GenreId;
+            NumberAvailable = movie.NumberAvailable;
         }
     }
 }

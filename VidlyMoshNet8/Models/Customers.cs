@@ -25,5 +25,7 @@ namespace VidlyMoshNet8.Models
         [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
+        public DateTime? DateSubscribed { get; set; }
+
     }
 }

@@ -24,9 +24,23 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.NumberInStock)
-        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control", @id = "numberInStock" })
         @Html.ValidationMessageFor(m => m.Movie.NumberInStock)
     </div>
+    @if (Model.IsNew)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Movie.NumberAvailable)
+            @Html.TextBoxFor(m => m.Movie.NumberAvailable, new { @class = "form-control", @id = "numberAvailable", @readonly = "readonly" })
+            @Html.ValidationMessageFor(m => m.Movie.NumberAvailable)
+        </div>
+        <script>
+            document.getElementById("numberInStock").addEventListener("input", function() {
+                document.getElementById("numberAvailable").value = this.value;
+            });
+        </script>
+    }
+
    
     @Html.HiddenFor(m => m.Movie.Id)
     @Html.AntiForgeryToken()

@@ -28,7 +28,8 @@ namespace VidlyMoshNet8.Controllers.API
                 .Include(m => m.Genre)
                 .Where(m => m.NumberAvailable > 0) 
 				.ToList()
-                .Select(_mapper.Map<Movie, MovieDTO>));       }
+                .Select(_mapper.Map<Movie, MovieDTO>));
+        }
 
         [HttpGet("{id}")]
         public IActionResult GetMovie(int id)

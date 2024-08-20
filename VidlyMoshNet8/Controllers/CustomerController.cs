@@ -61,6 +61,7 @@ namespace VidlyMoshNet8.Controllers
             }
             if (customers.Id == 0)
             {
+                customers.DateSubscribed = DateTime.Now;
                 _context.Customers.Add(customers);
             }
             else

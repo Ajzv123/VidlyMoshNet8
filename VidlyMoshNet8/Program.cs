@@ -1,5 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VidlyMoshNet8.Data;
 using VidlyMoshNet8.Maps;
