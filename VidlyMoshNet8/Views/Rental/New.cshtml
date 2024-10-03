@@ -45,6 +45,7 @@
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				prefetch: '../api/customer',
 				remote: {
+					ttl: 1,
 					url: '../api/customer=%QUERY',
 					wildcard: '%QUERY'
 				}
@@ -70,6 +71,7 @@
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				prefetch: '../api/movies',
 				remote: {
+					ttl: 1,
 					url: '../api/movies=%QUERY',
 					wildcard: '%QUERY'
 				}

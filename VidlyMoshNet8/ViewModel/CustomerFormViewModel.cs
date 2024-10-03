@@ -11,5 +11,13 @@ namespace VidlyMoshNet8.ViewModel
         {
             Customers = new Customers();
         }
+
+        public bool IsNew
+        {
+            get
+            {
+                return Customers != null && Customers.Id == 0;
+            }
+        }
     }
 }

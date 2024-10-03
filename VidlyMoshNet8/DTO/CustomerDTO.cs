@@ -18,6 +18,6 @@ namespace VidlyMoshNet8.DTO
         //[Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
-        public DateTime? DateSubscribed { get; set; }
+        public DateTime? DateSubscribed { get; set; } // 2 Descomentar para que se actualice la fecha de suscripcion
     }
 }

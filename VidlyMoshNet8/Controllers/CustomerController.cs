@@ -61,7 +61,7 @@ namespace VidlyMoshNet8.Controllers
             }
             if (customers.Id == 0)
             {
-                customers.DateSubscribed = DateTime.Now;
+               customers.DateSubscribed = DateTime.Now; // 3  Descomentar para que se actualice la fecha de suscripcion
                 _context.Customers.Add(customers);
             }
             else
@@ -73,6 +73,7 @@ namespace VidlyMoshNet8.Controllers
                 customerInDb.Birthdate = customers.Birthdate;
                 customerInDb.MembershipTypeId = customers.MembershipTypeId;
                 customerInDb.IsSubscribedToNewsLetter = customers.IsSubscribedToNewsLetter;
+                customerInDb.DateSubscribed = customers.DateSubscribed; //6 Descomentar para que se actualice la fecha de suscripcion
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Customer");

@@ -14,7 +14,7 @@
     <tr>
         <th>Customer</th>
         <th>Discount Rate</th>
-        <th>Date Subscribed</th>
+        <th>Date Subscribed</th> @* 7 Descomentar para que se actualice la fecha de suscripcion *@
         <th>Actions</th>
     </tr>
     </thead>
@@ -42,7 +42,7 @@
                         render: function (data) {
                             return new Date(data).toLocaleDateString();
                         }
-                    },
+                    }, // 5 Descomentar para que se actualice la fecha de suscripcion
                     {
                         data: "id",
                         render: function (data) {
@@ -56,24 +56,6 @@
                             return actions;
                         }
                     }
-                // {
-                //     data: "id",
-                //     render: function (data) {
-                //         return "<a href='/customer/" + data + "' class='btn btn-info'>Details</a>";
-                //     }
-                // },
-                // {
-                //     data: "id",
-                //     render: function (data, type, customer) {
-                //         return "<a href='/Customer/Edit/" + customer.id + "' class='btn btn-secondary'>Edit</a>";
-                //     }
-                // },
-                // {
-                //     data: "id",
-                //     render: function (data) {
-                //         return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
-                //     }
-                // }
                 ]
                 
             });
